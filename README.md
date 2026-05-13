@@ -102,7 +102,7 @@ python code/run.py --task 24 --method tot --b 5 --no_batch --n_puzzles 100
 # Mini Crosswords — paper-strict unbatched ToT on the 20-puzzle paper split
 python code/run.py --task crosswords --method tot --batch no --paper_split
 
-# Mini Crosswords — our new Pareto leader: unbatched + value cache
+# Mini Crosswords — unbatched + value cache
 python code/run.py --task crosswords --method tot --batch no --cache --paper_split
 
 # Creative Writing — ToT vote + LLM-as-judge
@@ -141,11 +141,13 @@ Each script accepts env-var overrides (`N_PUZZLES`, `MODEL`, `RPM`, `VERTEX=1`, 
 | **ToT (b = 5) unbatched** | **96 %** | **87 %** | — | **74 %** |
 
 <p align="center">
-  <img src="report/figures/fig-003.jpg" alt="Game of 24 accuracy across models and configurations" width="80%">
+  <img src="report/figures/fig-006.jpg" alt="Game of 24 accuracy across models and configurations" width="80%">
   <br><em>Success rate on Game of 24 (n = 100, b = 5). Unbatched ToT on both Gemini models exceeds GPT-4's 74 %. Batching collapses Gemini 2.5; the zero-cost rescore tiebreaker recovers most of the gap on Gemini 3.1.</em>
 </p>
 
-*Insight.* Batching collapses Gemini 2.5 (87 → 15 %) but not Gemini 3.1 (96 → 88 %) — non-thinking models shift from absolute to competitive grading under multi-candidate prompts (66 % "impossible" verdicts vs. 0 % unbatched, see figure below). The zero-cost rescore (trace-based local verifier tiebreaker) fully recovers Gemini 3.1 but only partially recovers Gemini 2.5, diagnosing that batching corrupts only the final selection on thinking models but the entire BFS trajectory on non-thinking ones.
+*Reproduction.* Paper-strict unbatched ToT (b = 5) hits **96 % on Gemini 3.1, 87 % on Gemini 2.5, vs. paper's 74 % on GPT-4**, with the IO < CoT < ToT ordering preserved on Gemma 3 27B too. Gemini's stronger arithmetic recall even lifts the IO baseline from 7.3 % to 16–17 %. Full sweep cost ~\$8 of Vertex credit.
+
+*Extension.* Batching the evaluator into one prompt **collapses Gemini 2.5** (87 → 15 %) but only mildly affects Gemini 3.1 (96 → 88 %): non-thinking models shift from absolute to competitive grading (66 % "impossible" verdicts vs. 0 % unbatched, see figure below). A zero-cost rescore — re-picking the highest-scored *correct* depth-3 candidate from the trace — fully recovers Gemini 3.1 but only partially recovers Gemini 2.5 (15 → 28 %): batching corrupts only the final selection on thinking models but the entire BFS trajectory on non-thinking ones.
 
 <p align="center">
   <img src="report/figures/fig-005.jpg" alt="Evaluator verdict distribution at BFS depth 0" width="70%">
@@ -168,11 +170,13 @@ Paper split (20 puzzles, indices 0, 5, …, 95) on Gemini 3.1 Flash-Lite. Averag
 | ToT half batch (basic) | 77.6 | 55.6 | 25.0 ± 1.6 | 414 | 37.2 |
 | **ToT full + focused (k = 0)** | 74.8 | 54.0 | 27.5 ± 3.2 | 118 | 19.6 |
 | **ToT half + focused (k = 7)** | 82.2 | 63.4 | 36.2 ± 3.8 | 421 | 29.6 |
-| **ToT unbatched + cache** *(new Pareto leader)* | 77.1 | 61.5 | **40.0 ± 4.1** | **347** | 27.0 |
+| **ToT unbatched + cache** *(new  leader)* | 77.1 | 61.5 | **40.0 ± 4.1** | **347** | 27.0 |
 
 Paper reference (GPT-4): IO 38.7 / 14.0 / 0.0 %, CoT 40.6 / 15.6 / 1.0 %, ToT 78.0 / 60.0 / 20.0 %.
 
-*Insight.* Batching collapses Gemini 2.5 (87 → 15 %) but not Gemini 3.1 (96 → 88 %) — non-thinking models shift from absolute to competitive grading under multi-candidate prompts (66 % "impossible" verdicts vs. 0 % unbatched). The zero-cost rescore (trace-based local verifier tiebreaker) fully recovers Gemini 3.1 but only partially recovers Gemini 2.5, diagnosing that batching corrupts only the final selection on thinking models but the entire BFS trajectory on non-thinking ones.
+*Reproduction.* The headline is **per-letter parity but nearly 2 × game accuracy** (33 vs. 20 % unbatched): Gemini closes whole grids the paper's GPT-4 search merely visited. Both paper-highlighted ablations reproduce — $-$backtrack collapses to 5 % game in 3.6 steps, $-$prune drops to 17.5 %. The one place we don't reproduce is the `+best-state` oracle gap (paper +15 pp, ours ≈ 0): Gemini's DFS commits cleanly to the gold grid rather than walking past it.
+
+*Extension.* **Focused candidate-level verdicts** (one viable/not-viable judgment per sibling) dominate basic at both batch levels: `full_focused` 27.5 % / 118 calls, `half_focused_k7` 36.2 % / 421 calls (matches unbatched at lower cost). A one-line **`--cache` flag** is the **cheapest accuracy win in the study** — 40.0 % game / 347 calls / −23 % runtime, dominating paper-strict on both axes by regularizing noisy gold-prompt verdicts across siblings. **`--verified`** re-confirmation was the only extension that backfired: it regressed every focused config by un-killing candidates the search should have pruned.
 
 <p align="center">
   <img src="report/figures/fig-009.png" alt="Accuracy, search depth, and API-call composition across call shapes" width="85%">
@@ -181,12 +185,12 @@ Paper reference (GPT-4): IO 38.7 / 14.0 / 0.0 %, CoT 40.6 / 15.6 / 1.0 %, ToT 78
 
 <p align="center">
   <img src="report/figures/fig-008.png" alt="Focused evaluator: per-puzzle heatmaps + top-K sweep" width="85%">
-  <br><em>Focused evaluator: per-puzzle heatmaps (top) and top-K sweep on game accuracy (bottom). Focused Pareto-dominates basic on both batch levels; <code>half_focused_k7</code> matches unbatched, full peaks at top-K=0.</em>
+  <br><em>Focused evaluator: per-puzzle heatmaps (top) and top-K sweep on game accuracy (bottom). Focused dominates basic on both batch levels; <code>half_focused_k7</code> matches unbatched, full peaks at top-K=0.</em>
 </p>
 
 <p align="center">
   <img src="report/figures/fig-014.png" alt="Cost-vs-accuracy tier summary" width="65%">
-  <br><em>Cost-vs-accuracy tier summary across the study. Unbatched + cache Pareto-dominates the paper-strict configuration on both axes.</em>
+  <br><em>Cost-vs-accuracy tier summary across the study. Unbatched + cache dominates the paper-strict configuration on both axes.</em>
 </p>
 
 Full per-config table and plots: [`results/crosswords/analysis.md`](results/crosswords/analysis.md), [`code/analysis/crosswords/plots/`](code/analysis/crosswords/plots/).
@@ -207,7 +211,9 @@ Full per-config table and plots: [`results/crosswords/analysis.md`](results/cros
 
 Paper reference (GPT-4 judge): ToT 7.56, CoT 6.93, IO 6.19.
 
-*Insight.* Vote-based ToT helps (6.94 vs. 6.63/6.50), and refinement helps a bit more. But the bigger story is that **score-based selection consistently beats vote-based planning** — `tot_score_select` is the headline at 8.14, and even `best-of-k IO` (no tree at all) reaches 7.93. For open-ended tasks, the search structure matters less than the quality of the candidate-selection mechanism.
+*Reproduction.* Vote-based ToT helps (6.94 vs. IO 6.63, CoT 6.50), reproducing the paper's **ToT > CoT ≈ IO** ordering. Absolute scores aren't directly comparable (Gemini judge vs. paper's GPT-4); only relative ranking carries over, with compressed magnitudes — Gemini's strong one-shot baseline leaves less headroom. Refinement adds +0.2–0.3 pp on every method (ToT + Refine 7.14, the best of the refined group).
+
+*Extension.* **Score-based selection consistently beats vote-based planning**: `tot_score_select` is the headline at 8.14, `best-of-k IO` reaches 7.93 with no tree at all, and `best-of-k CoT` reaches 7.61 — all above standard ToT's 6.94. The `plan_vote` / `plan_only_cot` controls (6.62, 6.57) isolate the mechanism: voting on plans without scoring passages barely lifts over IO. For open-ended tasks without an exact verifier, evaluator calibration matters more than search depth.
 
 <p align="center">
   <img src="report/figures/fig-011.png" alt="Creative Writing selection-mechanism ablations" width="60%">
@@ -240,6 +246,9 @@ ToT's value cleanly decomposes into a **search structure** (BFS / DFS with backt
 
 ### Future work
 
+- **Crosswords:** combine `--focused` candidate-level verdicts with the `--cache`, which we did not fully test. The cache regularizes evaluator noise (the main mechanism behind its +7 pp gain), and focused is independently dominant — together they could push above the current 40 % game leader at lower cost.
+- **Game of 24:** train a small, fine-tuned evaluator (e.g., distill from unbatched Gemini 3.1 traces) to recover unbatched accuracy at batched-level cost. This is the only avenue we see for closing the 3–4 × cost gap of paper-strict ToT.
+- **Creative Writing:** the `tot_score_select` win suggests every vote-based ToT prompt in the original code base is replaceable with independent scoring. A systematic sweep — vote vs. score across multiple judges and tasks — would test whether the result generalizes.
 - **Across tasks:** ToT's `(generator, evaluator)` decomposition begs for a unified meta-controller that picks evaluator mode (batched / focused / cache / score-select) from task characteristics (verifier availability, candidate fan-out, value-prompt cost). Our results suggest a 2 × 2 rule: *verifiable + cheap evaluator* → batched, *verifiable + expensive evaluator* → focused + cache, *open-ended + cheap judge* → score-select, *open-ended + expensive judge* → best-of-k with refinement.
 
 ---
@@ -260,6 +269,6 @@ ToT's value cleanly decomposes into a **search structure** (BFS / DFS with backt
 
 ## 9. Acknowledgements
 
-This work was completed as the final project for **CS 4782/5782: Introduction to Deep Learning (Cornell, Spring 2026)**, taught by **Prof. Killian Weinberger and Prof. Wei-Chiu Ma**. We thank the course staff for feedback during the proposal and poster sessions, and Princeton NLP for releasing the original ToT reference implementation and data splits.
+This work was completed as the final project for **CS 4782/5782: Introduction to Deep Learning (Cornell, Spring 2026)**, taught by **Profs. Killian Weinberger and Wei-Chiu Ma**. We thank the course staff for feedback during the proposal and poster sessions, and Princeton NLP for releasing the original ToT reference implementation and data splits.
 
-**Team 78:** Minghan Gao (mg2328), Zhichun Zhang (zz547), Warren Hua (wsh48), Yihan Zhao (yz2788).
+**Team 78:** Minghan Gao (mg2328), Warren Hua (wsh48), Zhichun Zhang (zz547), Yihan Zhao (yz2788).
