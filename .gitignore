@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment / secrets
+.env
+.env.*
+*.key
+*.pem
+credentials.json
+service-account*.json
+*_credentials.json
+
+# Results / experiment outputs
+results/logs/
+results/*.jsonl
+results/*.csv
+!results/game24/runs/
+!results/game24/runs/*.jsonl
+!results/game24/reverified/
+!results/game24/reverified/*.jsonl
+!results/crosswords/runs/
+!results/crosswords/runs/*.jsonl
+!results/crosswords/snapshots/
+!results/crosswords/snapshots/**
+!results/text/runs/
+!results/text/runs/*.jsonl
+!results/text/refined/
+!results/text/refined/*.jsonl
+
+# Large / generated data
+*.log
+*.tmp
+*.bak
+.DS_Store
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# Node / misc
+node_modules/
+dist/
+build/
