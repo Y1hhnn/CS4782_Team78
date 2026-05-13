@@ -49,9 +49,9 @@ These results collectively probe ToT under different search algorithms (BFS vs. 
 │   ├── scripts/{game24,crosswords,text}.sh + README.md
 │   └── analysis/                   # Notebooks, scripts, figures, tables
 ├── data/                           # 24.csv, mini0505.json, text_inputs.json
-├── results/                        # JSONL runs per task (+ logs, snapshots)
+├── results/                        # JSONL runs per task
 ├── poster/Poster.pdf               # In-class poster
-└── report/                         # Final report (PDF + .tex + .docx)
+└── report/                         # Final report (PDF + .docx)
 ```
 
 
