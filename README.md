@@ -140,7 +140,17 @@ Each script accepts env-var overrides (`N_PUZZLES`, `MODEL`, `RPM`, `VERTEX=1`, 
 | **ToT (b = 1) unbatched** | 83 % | 53 % | — | 45 % |
 | **ToT (b = 5) unbatched** | **96 %** | **87 %** | — | **74 %** |
 
-*Insight.* Batching collapses Gemini 2.5 (87 → 15 %) but not Gemini 3.1 (96 → 88 %) — non-thinking models shift from absolute to competitive grading under multi-candidate prompts (66 % "impossible" verdicts vs. 0 % unbatched). The zero-cost rescore (trace-based local verifier tiebreaker) fully recovers Gemini 3.1 but only partially recovers Gemini 2.5, diagnosing that batching corrupts only the final selection on thinking models but the entire BFS trajectory on non-thinking ones.
+<p align="center">
+  <img src="report/figures/fig-003.jpg" alt="Game of 24 accuracy across models and configurations" width="80%">
+  <br><em>Success rate on Game of 24 (n = 100, b = 5). Unbatched ToT on both Gemini models exceeds GPT-4's 74 %. Batching collapses Gemini 2.5; the zero-cost rescore tiebreaker recovers most of the gap on Gemini 3.1.</em>
+</p>
+
+*Insight.* Batching collapses Gemini 2.5 (87 → 15 %) but not Gemini 3.1 (96 → 88 %) — non-thinking models shift from absolute to competitive grading under multi-candidate prompts (66 % "impossible" verdicts vs. 0 % unbatched, see figure below). The zero-cost rescore (trace-based local verifier tiebreaker) fully recovers Gemini 3.1 but only partially recovers Gemini 2.5, diagnosing that batching corrupts only the final selection on thinking models but the entire BFS trajectory on non-thinking ones.
+
+<p align="center">
+  <img src="report/figures/fig-005.jpg" alt="Evaluator verdict distribution at BFS depth 0" width="70%">
+  <br><em>Evaluator verdict distribution at BFS depth 0. Batching causes Gemini 2.5 to vote "impossible" on 66 % of candidates (vs. 0 % unbatched). Gemini 3.1's thinking tokens resist: 62 % "sure" even when batched.</em>
+</p>
 
 ### Mini Crosswords (Table 3 in paper: 78 / 60 / 20 %)
 
@@ -162,13 +172,22 @@ Paper split (20 puzzles, indices 0, 5, …, 95) on Gemini 3.1 Flash-Lite. Averag
 
 Paper reference (GPT-4): IO 38.7 / 14.0 / 0.0 %, CoT 40.6 / 15.6 / 1.0 %, ToT 78.0 / 60.0 / 20.0 %.
 
-*Insights.*
-- **Per-letter parity, nearly 2 × game accuracy** vs. the paper (33 vs. 20 % unbatched). Gemini's stronger word-level recall closes whole grids more often.
-- **Search commits cleanly** — the `+best-state` oracle adds zero (33.0 → 33.0 %), unlike the paper's +15 pp jump. The deepest visited state *is* the final state.
-- **Backtracking is the engine** — without it, accuracy collapses to 5 % game in 3.6 steps. Pruning halves the cost; removing it costs ~16 pp.
-- **Focused candidate-level verdicts Pareto-dominate** per-clue scoring on both batch levels. `half_focused_k7` (36.2 %) matches unbatched at lower cost.
-- **The value cache is the cheapest single accuracy win** — adding `--cache` to unbatched cuts value calls 38 %, runtime 23 %, and *adds* 7 pp game accuracy by regularizing noisy gold-prompt verdicts across siblings.
-- **Verified re-confirmation regressed every focused configuration tested** — gold-prompt restoration tends to un-kill candidates the search should have pruned.
+*Insight.* Batching collapses Gemini 2.5 (87 → 15 %) but not Gemini 3.1 (96 → 88 %) — non-thinking models shift from absolute to competitive grading under multi-candidate prompts (66 % "impossible" verdicts vs. 0 % unbatched). The zero-cost rescore (trace-based local verifier tiebreaker) fully recovers Gemini 3.1 but only partially recovers Gemini 2.5, diagnosing that batching corrupts only the final selection on thinking models but the entire BFS trajectory on non-thinking ones.
+
+<p align="center">
+  <img src="report/figures/fig-009.png" alt="Accuracy, search depth, and API-call composition across call shapes" width="85%">
+  <br><em>Call-shape comparison. Full batching cuts cost 65 % for an 11 pp game drop (35 % → 24 %); half batching holds the highest letter accuracy (77.6 %) but is dominated on game accuracy.</em>
+</p>
+
+<p align="center">
+  <img src="report/figures/fig-008.png" alt="Focused evaluator: per-puzzle heatmaps + top-K sweep" width="85%">
+  <br><em>Focused evaluator: per-puzzle heatmaps (top) and top-K sweep on game accuracy (bottom). Focused Pareto-dominates basic on both batch levels; <code>half_focused_k7</code> matches unbatched, full peaks at top-K=0.</em>
+</p>
+
+<p align="center">
+  <img src="report/figures/fig-014.png" alt="Cost-vs-accuracy tier summary" width="65%">
+  <br><em>Cost-vs-accuracy tier summary across the study. Unbatched + cache Pareto-dominates the paper-strict configuration on both axes.</em>
+</p>
 
 Full per-config table and plots: [`results/crosswords/analysis.md`](results/crosswords/analysis.md), [`code/analysis/crosswords/plots/`](code/analysis/crosswords/plots/).
 
@@ -190,17 +209,38 @@ Paper reference (GPT-4 judge): ToT 7.56, CoT 6.93, IO 6.19.
 
 *Insight.* Vote-based ToT helps (6.94 vs. 6.63/6.50), and refinement helps a bit more. But the bigger story is that **score-based selection consistently beats vote-based planning** — `tot_score_select` is the headline at 8.14, and even `best-of-k IO` (no tree at all) reaches 7.93. For open-ended tasks, the search structure matters less than the quality of the candidate-selection mechanism.
 
+<p align="center">
+  <img src="report/figures/fig-011.png" alt="Creative Writing selection-mechanism ablations" width="60%">
+  <br><em>Selection-mechanism ablations across plan-only CoT, plan-vote, standard ToT, and ToT score-select. Score-select concentrates scores near the top of the range; vote-based ToT has the widest spread.</em>
+</p>
+
+<p align="center">
+  <img src="report/figures/fig-012.png" alt="Best-of-k controls vs ToT variants" width="60%">
+  <br><em>Best-of-k controls vs. ToT variants. <code>best-of-k IO</code> (7.93) and <code>tot_score_select</code> (8.14) both outperform standard vote-based ToT (6.94).</em>
+</p>
+
 ---
 
 ## 7. Conclusion
 
-The headline takeaway: ToT's value cleanly decomposes into a **search structure** (BFS/DFS with backtracking) and an **evaluation mechanism**, and which one dominates depends on the task.
+### Per-task paper reproduction
 
-- **Constrained tasks (Game of 24, Crosswords):** search dominates. Backtracking and pruning are essential — removing either collapses accuracy by 30+ pp. Beating GPT-4 on Game of 24 (96 % vs. 74 %) is largely a search-faithfulness win; the most important lesson was that the paper's per-state evaluator pattern is implicit in the code only.
-- **Open-ended tasks (Creative Writing):** evaluation dominates. Vote-based ToT improves on IO/CoT, but independent score-selection improves much more — `tot_score_select` 8.14 vs. ToT 6.94. Tree structure helps less than reliable candidate scoring.
-<!-- - **For Crosswords specifically:** focused candidate-level verdicts Pareto-dominate per-clue scoring at both batch levels, and a one-line `--cache` flag was the cheapest accuracy win in the entire study (40.0 % game / 347 calls / −23 % runtime). Verified re-confirmation, in contrast, regressed every configuration it touched. -->
+- **Game of 24 — reproduced and exceeded the paper.** Unbatched ToT (b = 5) hits **96 %** on Gemini 3.1 and **87 %** on Gemini 2.5, vs. the paper's **74 %** on GPT-4. The qualitative ordering (IO < CoT < ToT) is preserved on every model tested, and Gemma 3 27B reproduces the gap with smaller absolute values (14 → 33 %). The main reproduction lesson was that the paper's per-state evaluator pattern is implicit in the code, never stated in the text — our initial batched implementation silently degraded accuracy and revealed the batching-vs-unbatching axis as the central extension.
+- **Mini Crosswords — reproduced per-letter, exceeded on game accuracy.** Unbatched ToT reaches **77.4 / 59.1 / 33.0 %** (letter/word/game) vs. the paper's **78.0 / 60.0 / 20.0 %** — essentially tied on per-cell quality but **nearly 2 × game accuracy**. Every ablation reproduces the paper's qualitative direction: `−backtrack` collapses to 5 % game, `−prune` drops 16 pp. The one place we *don't* reproduce the paper is the `+best-state` oracle gap (paper +15 pp, ours ≈ 0) — Gemini's DFS commits cleanly to the gold grid rather than walking past it.
+- **Creative Writing — reproduced ranking, compressed magnitudes.** Standard ToT (6.94) ≥ IO (6.63) ≥ CoT (6.50) preserves the paper's `ToT > CoT > IO` ordering, but the gaps are smaller than the paper's (ToT 7.56 vs. CoT 6.93 vs. IO 6.19) — likely because Gemini's stronger one-shot generation leaves less room for search to help. Refinement adds a modest +0.2 pp on every method, confirming the paper's claim that post-generation revision is a general win.
 
-Future ToT implementations should match evaluation strategy to task type rather than reuse the paper's vote-prompt template universally.
+### Constrained vs. open-ended: the unifying insight
+
+ToT's value cleanly decomposes into a **search structure** (BFS / DFS with backtracking) and an **evaluation mechanism**, and which one dominates is task-type-dependent:
+
+- **Constrained tasks (Game of 24, Crosswords)** are *search-bound*. Backtracking is the engine — without it accuracy collapses 30+ pp on both tasks. Pruning matters but is recoverable. Evaluator design moves accuracy ~5–10 pp; *search structure* moves it 30+ pp.
+- **Open-ended tasks (Creative Writing)** are *evaluator-bound*. The tree structure helps modestly (ToT 6.94 vs. IO 6.63), but **independent score-selection improves much more** — `tot_score_select` 8.14, even `best-of-k IO` 7.93 with no tree at all. When there is no exact verifier, the bottleneck is whether you can reliably *rank* candidates, not how many you generate or how deeply you search.
+
+<!-- A second cross-task pattern: **batching corrupts evaluation more on non-thinking models** than on thinking ones. Gemini 2.5 drops 87 → 15 % when ToT's value evaluator is batched on Game of 24; Gemini 3.1 drops only 96 → 88 %. On Crosswords the same effect appears as full-batch losing 11 pp on game accuracy. The mechanism is shared: multi-candidate prompts shift the model from absolute judgment ("is this state likely?") to competitive ranking ("which of these is best?"), and only thinking tokens resist that shift. -->
+
+### Future work
+
+- **Across tasks:** ToT's `(generator, evaluator)` decomposition begs for a unified meta-controller that picks evaluator mode (batched / focused / cache / score-select) from task characteristics (verifier availability, candidate fan-out, value-prompt cost). Our results suggest a 2 × 2 rule: *verifiable + cheap evaluator* → batched, *verifiable + expensive evaluator* → focused + cache, *open-ended + cheap judge* → score-select, *open-ended + expensive judge* → best-of-k with refinement.
 
 ---
 
