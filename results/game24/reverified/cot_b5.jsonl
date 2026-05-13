@@ -1,0 +1,100 @@
+{"inputs": [1, 7, 9, 11], "equation": "(11 + 1) * (9 - 7) = 24", "verified": true, "elapsed_s": 1.15, "trace": null, "idx": 57}
+{"inputs": [2, 5, 8, 11], "equation": "(11 - 5) * (8 / 2) = 24", "verified": true, "elapsed_s": 1.19, "trace": null, "idx": 2}
+{"inputs": [2, 6, 7, 11], "equation": "(11 - 6 + 7) * 2 = 24", "verified": true, "elapsed_s": 1.29, "trace": null, "idx": 84}
+{"inputs": [2, 3, 6, 13], "equation": "((13 + 2) + 6) + 3 = 24", "verified": true, "elapsed_s": 1.39, "trace": null, "idx": 58}
+{"inputs": [3, 4, 4, 13], "equation": "4 * ( (13 - 4) - 3 ) = 24", "verified": true, "elapsed_s": 1.4, "trace": null, "idx": 3}
+{"inputs": [2, 3, 4, 9], "equation": "(9 + 3) / 2 * 4 = 24", "verified": true, "elapsed_s": 1.42, "trace": null, "idx": 83}
+{"inputs": [2, 2, 5, 12], "equation": "(5 * 2 + 2) + 12 = 24", "verified": true, "elapsed_s": 1.51, "trace": null, "idx": 59}
+{"inputs": [3, 4, 6, 8], "equation": "(8 - 6) * (4 * 3) = 24", "verified": true, "elapsed_s": 1.76, "trace": null, "idx": 56}
+{"inputs": [5, 6, 8, 12], "equation": "(12 * 6) / (8 - 5) = 24", "verified": true, "elapsed_s": 1.79, "trace": null, "idx": 29}
+{"inputs": [2, 5, 10, 10], "equation": "(10 + 10 / 5) * 2 = 24", "verified": true, "elapsed_s": 2.07, "trace": null, "idx": 31}
+{"inputs": [6, 7, 8, 9], "equation": "(8 / (9 - 7)) * 6 = 24", "verified": true, "elapsed_s": 2.17, "trace": null, "idx": 4}
+{"inputs": [2, 6, 8, 13], "equation": "(13 * (8 - 6)) - 2 = 24", "verified": true, "elapsed_s": 2.22, "trace": null, "idx": 60}
+{"inputs": [2, 4, 5, 6], "equation": "(5 * 6) - (4 + 2) = 24", "verified": true, "elapsed_s": 2.24, "trace": null, "idx": 87}
+{"inputs": [2, 4, 6, 7], "equation": "(7 - 4) * (2 + 6) = 24", "verified": true, "elapsed_s": 2.37, "trace": null, "idx": 30}
+{"inputs": [1, 11, 11, 13], "equation": "(13 - 11) * (11 + 1) = 24", "verified": true, "elapsed_s": 1.19, "trace": null, "idx": 5}
+{"inputs": [1, 3, 8, 13], "equation": "(13 + 3 + 8) * 1 = 24", "verified": true, "elapsed_s": 1.15, "trace": null, "idx": 62}
+{"inputs": [4, 7, 9, 13], "equation": "(13 - 9) * 7 - 4 = 24", "verified": true, "elapsed_s": 2.72, "trace": null, "idx": 28}
+{"inputs": [1, 2, 4, 7], "equation": "(7 + 4 + 1) * 2 = 24", "verified": true, "elapsed_s": 2.8, "trace": null, "idx": 1}
+{"inputs": [1, 8, 10, 11], "equation": "(11 + 1) * (10 - 8) = 24", "verified": true, "elapsed_s": 1.36, "trace": null, "idx": 6}
+{"inputs": [2, 3, 6, 9], "equation": "(9 - 3 + 6) * 2 = 24", "verified": true, "elapsed_s": 0.84, "trace": null, "idx": 7}
+{"inputs": [6, 9, 12, 13], "equation": "(13 + 9) + (12 / 6) = 24", "verified": true, "elapsed_s": 3.14, "trace": null, "idx": 27}
+{"inputs": [8, 8, 10, 12], "equation": "(12 - 10) * 8 + 8 = 24", "verified": true, "elapsed_s": 1.99, "trace": null, "idx": 61}
+{"inputs": [1, 3, 5, 9], "equation": "(5 * 3 + 9) * 1 = 24", "verified": true, "elapsed_s": 1.09, "trace": null, "idx": 8}
+{"inputs": [6, 9, 9, 11], "equation": "(11 - 9) * 9 + 6 = 24", "verified": true, "elapsed_s": 2.13, "trace": null, "idx": 33}
+{"inputs": [2, 3, 3, 10], "equation": "(10 / 2 + 3) * 3 = 24", "verified": true, "elapsed_s": 2.3, "trace": null, "idx": 89}
+{"inputs": [6, 11, 12, 13], "equation": "(13 - 11) * 12 = 24", "verified": false, "elapsed_s": 1.13, "trace": null, "idx": 36}
+{"inputs": [2, 2, 8, 8], "equation": "(8 + 8 / 2) * 2 = 24", "verified": true, "elapsed_s": 1.0, "trace": null, "idx": 37}
+{"inputs": [1, 9, 10, 13], "equation": "(9 - 1) * (13 - 10) = 24", "verified": true, "elapsed_s": 1.11, "trace": null, "idx": 65}
+{"inputs": [5, 9, 12, 12], "equation": "", "verified": false, "elapsed_s": 4.11, "trace": null, "idx": 85}
+{"inputs": [5, 8, 11, 12], "equation": "(12 - 8) * (11 - 5) = 24", "verified": true, "elapsed_s": 2.42, "trace": null, "idx": 34}
+{"inputs": [4, 5, 7, 9], "equation": "(9 - 5) * 7 - 4 = 24", "verified": true, "elapsed_s": 0.92, "trace": null, "idx": 10}
+{"inputs": [1, 2, 7, 12], "equation": "", "verified": false, "elapsed_s": 4.27, "trace": null, "idx": 86}
+{"inputs": [2, 2, 8, 9], "equation": "(9 * 2) + 8 - 2 = 24", "verified": true, "elapsed_s": 1.59, "trace": null, "idx": 92}
+{"inputs": [3, 4, 8, 12], "equation": "(12 / 3) * 4 + 8 = 24", "verified": true, "elapsed_s": 2.7, "trace": null, "idx": 90}
+{"inputs": [2, 4, 6, 11], "equation": "(11 * 2) + (6 - 4) = 24", "verified": true, "elapsed_s": 2.26, "trace": null, "idx": 91}
+{"inputs": [5, 6, 8, 10], "equation": "(8 * 5) - 10 - 6 = 24", "verified": true, "elapsed_s": 2.59, "trace": null, "idx": 35}
+{"inputs": [3, 3, 4, 11], "equation": "(3 * 3) + 11 + 4 = 24", "verified": true, "elapsed_s": 1.43, "trace": null, "idx": 66}
+{"inputs": [1, 5, 6, 7], "equation": "(6 * 5) - (7 - 1) = 24", "verified": true, "elapsed_s": 1.79, "trace": null, "idx": 93}
+{"inputs": [1, 7, 10, 13], "equation": "(7 + 1) * (13 - 10) = 24", "verified": true, "elapsed_s": 2.72, "trace": null, "idx": 64}
+{"inputs": [1, 2, 8, 13], "equation": "(13 + 8 + 2) + 1 = 24", "verified": true, "elapsed_s": 1.43, "trace": null, "idx": 11}
+{"inputs": [4, 4, 9, 12], "equation": "4 * (9 - 12 / 4) = 24", "verified": true, "elapsed_s": 1.05, "trace": null, "idx": 95}
+{"inputs": [5, 5, 8, 13], "equation": "", "verified": false, "elapsed_s": 4.02, "trace": null, "idx": 88}
+{"inputs": [3, 3, 7, 12], "equation": "(7 - 3) * 3 + 12 = 24", "verified": true, "elapsed_s": 2.5, "trace": null, "idx": 9}
+{"inputs": [3, 4, 9, 13], "equation": "(13 - 9 + 4) * 3 = 24", "verified": true, "elapsed_s": 1.26, "trace": null, "idx": 40}
+{"inputs": [2, 7, 12, 13], "equation": "(13 - 7) * 2 + 12 = 24", "verified": true, "elapsed_s": 2.13, "trace": null, "idx": 38}
+{"inputs": [4, 5, 10, 12], "equation": "4 * (12 / (10 / 5)) = 24", "verified": true, "elapsed_s": 0.9, "trace": null, "idx": 41}
+{"inputs": [2, 5, 7, 7], "equation": "(5 * 2) + (7 + 7) = 24", "verified": true, "elapsed_s": 2.02, "trace": null, "idx": 67}
+{"inputs": [2, 6, 8, 12], "equation": "(8 / 2) * (12 - 6) = 24", "verified": true, "elapsed_s": 2.08, "trace": null, "idx": 39}
+{"inputs": [4, 4, 7, 10], "equation": "", "verified": false, "elapsed_s": 4.05, "trace": null, "idx": 63}
+{"inputs": [4, 8, 11, 13], "equation": "4 * (11 - (13 - 8)) = 24", "verified": true, "elapsed_s": 1.08, "trace": null, "idx": 98}
+{"inputs": [4, 4, 8, 12], "equation": "(12 / (8 / 4)) * 4 = 24", "verified": true, "elapsed_s": 1.21, "trace": null, "idx": 70}
+{"inputs": [4, 9, 10, 13], "equation": "4 * (10 - (13 - 9)) = 24", "verified": true, "elapsed_s": 0.78, "trace": null, "idx": 99}
+{"inputs": [2, 5, 6, 6], "equation": "6 + 6 * (5 - 2) = 24", "verified": true, "elapsed_s": 2.16, "trace": null, "idx": 96}
+{"inputs": [1, 5, 10, 11], "equation": "(11 + 1) * (10 / 5) = 24", "verified": true, "elapsed_s": 1.57, "trace": null, "idx": 14}
+{"inputs": [2, 3, 4, 7], "equation": "(7 + 2 - 3) * 4 = 24", "verified": true, "elapsed_s": 2.21, "trace": null, "idx": 69}
+{"inputs": [2, 4, 9, 12], "equation": "(12 - 9) * 4 * 2 = 24", "verified": true, "elapsed_s": 1.95, "trace": null, "idx": 97}
+{"inputs": [3, 4, 6, 11], "equation": "((11 + 4) + 6) + 3 = 24", "verified": true, "elapsed_s": 1.74, "trace": null, "idx": 15}
+{"inputs": [3, 9, 10, 13], "equation": "(9 * (13 - 10)) - 3 = 24", "verified": true, "elapsed_s": 2.9, "trace": null, "idx": 68}
+{"inputs": [1, 2, 6, 10], "equation": "(10 / 2 - 1) * 6 = 24", "verified": true, "elapsed_s": 1.94, "trace": null, "idx": 71}
+{"inputs": [1, 3, 9, 9], "equation": "(9 / 3) * (9 - 1) = 24", "verified": true, "elapsed_s": 1.1, "trace": null, "idx": 45}
+{"inputs": [4, 6, 6, 9], "equation": "(9 * 4) - (6 + 6) = 24", "verified": true, "elapsed_s": 3.33, "trace": null, "idx": 12}
+{"inputs": [5, 8, 10, 11], "equation": "", "verified": false, "elapsed_s": 3.81, "trace": null, "idx": 94}
+{"inputs": [1, 4, 4, 11], "equation": "(11 - 4 - 1) * 4 = 24", "verified": true, "elapsed_s": 1.5, "trace": null, "idx": 46}
+{"inputs": [6, 10, 12, 13], "equation": "(12 / (13 - 10)) * 6 = 24", "verified": true, "elapsed_s": 1.94, "trace": null, "idx": 44}
+{"inputs": [1, 5, 9, 13], "equation": "(5 + 1) * (13 - 9) = 24", "verified": true, "elapsed_s": 0.92, "trace": null, "idx": 20}
+{"inputs": [2, 2, 7, 12], "equation": "(7 * 2 - 2) + 12 = 24", "verified": true, "elapsed_s": 1.68, "trace": null, "idx": 18}
+{"inputs": [1, 5, 12, 12], "equation": "12 * (12 / (5 + 1)) = 24", "verified": true, "elapsed_s": 2.3, "trace": null, "idx": 72}
+{"inputs": [5, 6, 6, 8], "equation": "6 * (8 - 5) + 6 = 24", "verified": true, "elapsed_s": 1.99, "trace": null, "idx": 73}
+{"inputs": [3, 3, 9, 12], "equation": "(9 - 3) * (12 / 3) = 24", "verified": true, "elapsed_s": 1.08, "trace": null, "idx": 76}
+{"inputs": [1, 4, 5, 13], "equation": "(13 - 5) * (4 - 1) = 24", "verified": true, "elapsed_s": 2.31, "trace": null, "idx": 17}
+{"inputs": [1, 3, 7, 10], "equation": "(10 * 3) - (7 - 1) = 24", "verified": true, "elapsed_s": 1.9, "trace": null, "idx": 75}
+{"inputs": [1, 2, 2, 9], "equation": "(9 + 2 + 1) * 2 = 24", "verified": true, "elapsed_s": 0.66, "trace": null, "idx": 50}
+{"inputs": [2, 4, 8, 9], "equation": "", "verified": false, "elapsed_s": 3.34, "trace": null, "idx": 16}
+{"inputs": [5, 6, 7, 13], "equation": "(6 * 5) - (13 - 7) = 24", "verified": true, "elapsed_s": 1.58, "trace": null, "idx": 21}
+{"inputs": [3, 5, 7, 10], "equation": "(10 - 7) * (5 + 3) = 24", "verified": true, "elapsed_s": 1.63, "trace": null, "idx": 77}
+{"inputs": [1, 2, 7, 11], "equation": "(7 * 2 + 11) - 1 = 24", "verified": true, "elapsed_s": 4.07, "trace": null, "idx": 42}
+{"inputs": [3, 3, 6, 7], "equation": "6 * (7 - 3) * (3 / 3) = 24", "verified": false, "elapsed_s": 2.5, "trace": null, "idx": 19}
+{"inputs": [2, 3, 9, 10], "equation": "((10 + 9) + 2) + 3 = 24", "verified": true, "elapsed_s": 2.31, "trace": null, "idx": 47}
+{"inputs": [4, 5, 6, 8], "equation": "6 * (8 - 4) * (5 / 5) = 24", "verified": false, "elapsed_s": 3.82, "trace": null, "idx": 43}
+{"inputs": [1, 2, 3, 13], "equation": "(13 * 2) - 3 + 1 = 24", "verified": true, "elapsed_s": 1.96, "trace": null, "idx": 48}
+{"inputs": [3, 4, 6, 6], "equation": "(6 / 3 + 4) * 6 = 24", "verified": false, "elapsed_s": 0.9, "trace": null, "idx": 80}
+{"inputs": [5, 8, 8, 8], "equation": "(8 - 5) * 8 = 24", "verified": false, "elapsed_s": 0.86, "trace": null, "idx": 81}
+{"inputs": [2, 4, 6, 12], "equation": "(6 + 2) * (12 / 4) = 24", "verified": true, "elapsed_s": 1.73, "trace": null, "idx": 23}
+{"inputs": [7, 7, 8, 11], "equation": "", "verified": false, "elapsed_s": 3.78, "trace": null, "idx": 74}
+{"inputs": [2, 3, 6, 6], "equation": "(6 * 2 / 3) * 6 = 24", "verified": true, "elapsed_s": 1.21, "trace": null, "idx": 53}
+{"inputs": [1, 3, 6, 11], "equation": "(11 + 1) * (6 / 3) = 24", "verified": true, "elapsed_s": 2.12, "trace": null, "idx": 51}
+{"inputs": [6, 7, 8, 11], "equation": "((11 + 7) / 6) * 8 = 24", "verified": true, "elapsed_s": 1.92, "trace": null, "idx": 24}
+{"inputs": [4, 5, 6, 10], "equation": "(10 - 6) * 5 + 4 = 24", "verified": true, "elapsed_s": 1.27, "trace": null, "idx": 0}
+{"inputs": [3, 6, 9, 12], "equation": "(12 + 6 + 9) - 3 = 24", "verified": true, "elapsed_s": 1.31, "trace": null, "idx": 26}
+{"inputs": [4, 10, 12, 13], "equation": "(13 - 10) * (12 - 4) = 24", "verified": true, "elapsed_s": 2.62, "trace": null, "idx": 78}
+{"inputs": [5, 5, 8, 10], "equation": "8 * (5 - (10 / 5)) = 24", "verified": true, "elapsed_s": 2.65, "trace": null, "idx": 22}
+{"inputs": [7, 8, 8, 12], "equation": "(7 - (12 - 8)) * 8 = 24", "verified": true, "elapsed_s": 1.29, "trace": null, "idx": 55}
+{"inputs": [7, 9, 9, 13], "equation": "(9 + 9) + (13 - 7) = 24", "verified": true, "elapsed_s": 2.12, "trace": null, "idx": 25}
+{"inputs": [1, 6, 6, 6], "equation": "6 * (6 - (6 / 6 + 1)) = 24.", "verified": false, "elapsed_s": 3.48, "trace": null, "idx": 49}
+{"inputs": [2, 3, 10, 12], "equation": "", "verified": false, "elapsed_s": 3.56, "trace": null, "idx": 79}
+{"inputs": [5, 10, 12, 13], "equation": "", "verified": false, "elapsed_s": 3.63, "trace": null, "idx": 52}
+{"inputs": [6, 7, 10, 12], "equation": "(12 * 6) / (10 - 7) = 24", "verified": true, "elapsed_s": 3.36, "trace": null, "idx": 54}
+{"inputs": [6, 8, 8, 12], "equation": "", "verified": false, "elapsed_s": 3.97, "trace": null, "idx": 82}
+{"inputs": [1, 4, 4, 8], "equation": "(4 * 4 + 8) * 1 = 24", "verified": true, "elapsed_s": 1.68, "trace": null, "idx": 13}
+{"inputs": [6, 6, 7, 12], "equation": "(7 * 6) - 12 - 6 = 24", "verified": true, "elapsed_s": 2.91, "trace": null, "idx": 32}

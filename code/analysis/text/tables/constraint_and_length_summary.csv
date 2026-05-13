@@ -1,0 +1,7 @@
+method,n,avg_ending_match_count,all_endings_match_rate,avg_num_paragraphs,avg_num_words
+COT,100,3.37,0.74,4.0,226.14
+IO,100,3.5,0.77,4.0,243.05
+TOT,100,3.12,0.63,4.0,257.73
+cot_refine,100,3.23,0.72,4.0,241.8
+io_refine,100,3.33,0.75,4.0,257.22
+tot_refine,100,2.94,0.63,4.0,262.04
