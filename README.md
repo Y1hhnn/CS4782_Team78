@@ -260,6 +260,6 @@ ToT's value cleanly decomposes into a **search structure** (BFS / DFS with backt
 
 ## 9. Acknowledgements
 
-This work was completed as the final project for **CS 4782/5782: Introduction to Deep Learning (Cornell, Spring 2026)**, taught by **Profs. Killian Weinberger and Wei-Chiu Ma**. We thank the course staff for feedback during the proposal and poster sessions, and Princeton NLP for releasing the original ToT reference implementation and data splits.
+This work was completed as the final project for **CS 4782/5782: Introduction to Deep Learning (Cornell, Spring 2026)**, taught by **Prof. Killian Weinberger and Prof. Wei-Chiu Ma**. We thank the course staff for feedback during the proposal and poster sessions, and Princeton NLP for releasing the original ToT reference implementation and data splits.
 
 **Team 78:** Minghan Gao (mg2328), Warren Hua (wsh48), Zhichun Zhang (zz547), Yihan Zhao (yz2788).
